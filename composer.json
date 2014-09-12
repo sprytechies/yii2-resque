@@ -1,0 +1,19 @@
+{
+    "name": "resque/yii2-resque",
+    "description": "Yii2 Resque",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sprytechies",
+            "email": "devteam01@sprytechies.com"
+        }
+    ],
+    
+    "autoload": {
+        "psr-4": {
+            "resque\\": ""
+        }
+    }
+}
