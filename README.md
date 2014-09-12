@@ -4,10 +4,11 @@ Resque is a Redis-backed library for creating background jobs, placing those job
 
 Requirement
 ------------
-    - php pcntl extension.
-    - Redis.io
-    - phpredis extension for better performance, otherwise it'll automatically use Credis as fallback.
-    - Yii 2
+
+    -   php pcntl extension.
+    -   Redis.io
+    -   phpredis extension for better performance, otherwise it'll automatically use Credis as fallback.
+    -   Yii 2
 
 
 Installation
@@ -202,7 +203,7 @@ Usage
 
 Once the extension is installed  :
 
-1.  Create a folder `components` in your app. 
+## 1.  Create a folder `components` in your app. ##
     You can put all your class files into this `components` folder.
 
     Example - 
@@ -229,7 +230,7 @@ Once the extension is installed  :
         }
     }
     ```
-**2.  Create job and Workers**
+## 2.  Create job and Workers ##
 
     You can put this line where ever you want to add jobs to queue
     ```php
@@ -237,7 +238,8 @@ Once the extension is installed  :
     ```
     Put your workers inside `components` folder, e.g you want to create worker with name SendEmail then you can create file inside `components` folder and name it SendEmail.php, class inside this file must be SendEmail.
 
-**3.  Create Delayed Job**
+
+## 3.  Create Delayed Job ##
 
     You can run job at specific time
 
@@ -252,13 +254,13 @@ Once the extension is installed  :
         $args = ['id' => $user->id];    
         Yii::$app->resque->enqueueIn($in, 'email', 'ClassWorker', $args);
     ```
-**4.  Get Current Queues**
+## 4.  Get Current Queues ##
 
     This will return all job in queue (EXCLUDE all active job)
     ```php
     Yii::$app->resque->getQueues();
     ```
-**5.  Start and Stop workers**
+## 5.  Start and Stop workers ##
 
     Run this command from your console/terminal :
 
