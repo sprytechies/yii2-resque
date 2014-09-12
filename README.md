@@ -1,11 +1,30 @@
 Yii2 Resque
 ===========
-Yii2 Resque
+Resque is a Redis-backed library for creating background jobs, placing those jobs on one or more queues, and processing them later.
+
+Requirement
+------------
+    php pcntl extension.
+    Redis.io
+    phpredis extension for better performance, otherwise it'll automatically use Credis as fallback.
+    Yii 2
+
 
 Installation
 ------------
 
 1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+    Add
+
+    ```
+    "repositories":[
+            {
+                "type": "git",
+                "url": "https://github.com/sprytechies/yii2-resque.git"
+            }
+        ],
+    ```
 
     Either run
 
@@ -16,12 +35,12 @@ Installation
     or add
     
     ```
-    "resque/yii2-resque": "*"
+    "resque/yii2-resque": "dev-master"
     ```
 
     to the require section of your `composer.json` file.
 
-2.  Create a file named `ResqueController.php` in app/commands folder and write the following code in it.
+2.  Create a file `ResqueController.php` in app/commands folder and write the following code in it.
     ```php
         namespace app\commands;
         use Yii;
@@ -160,7 +179,8 @@ Installation
 
     ```
     
-3.  Add these in you config/web.php
+3.  Add these in your config/web.php and in your config/console.php
+
     ```php
     'components' => [
         ...
@@ -180,7 +200,7 @@ Installation
 Usage
 -----
 
-Once the extension is installed,  :
+Once the extension is installed  :
 
 1.  Create a folder `components` in your app. 
     You can put all your class files into this `components` folder.
@@ -209,5 +229,45 @@ Once the extension is installed,  :
         }
     }
     ```
-2.  Write this command to start resque in your console/terminal.
-    QUEUE=queue1 php yii resque start
+2.  Create job and Workers
+    ----------------------
+
+    You can put this line where ever you want to add jobs to queue
+    ```php
+        Yii::$app->resque->createJob('queue_name', 'ClassWorker', $args = []);
+    ```
+    Put your workers inside `components` folder, e.g you want to create worker with name SendEmail then you can create file inside `components` folder and name it SendEmail.php, class inside this file must be SendEmail
+
+3.  Create Delayed Job
+    ------------------
+
+    You can run job at specific time
+    ```php
+        $time = 1332067214;
+        Yii::$app->resque->enqueueJobAt($time, 'queue_name', 'ClassWorker', $args = []);
+    ```
+    or run job after n second
+    ```php
+        $in = 3600;
+        $args = ['id' => $user->id];    
+        Yii::$app->resque->enqueueIn($in, 'email', 'ClassWorker', $args);
+    ```
+4.  Get Current Queues
+    ------------------
+
+    This will return all job in queue (EXCLUDE all active job)
+    ```php
+    Yii::$app->resque->getQueues();
+    ```
+5.  Start and Stop workers
+    ----------------------
+
+    Run this command from your console/terminal :
+
+    Start queue
+    `QUEUE=* php yii resque start`
+
+    Stop queue
+    `QUEUE=* php yii resque stop`
+
+
