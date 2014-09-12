@@ -235,16 +235,18 @@ Once the extension is installed  :
     ```php
         Yii::$app->resque->createJob('queue_name', 'ClassWorker', $args = []);
     ```
-    Put your workers inside `components` folder, e.g you want to create worker with name SendEmail then you can create file inside `components` folder and name it SendEmail.php, class inside this file must be SendEmail
+    Put your workers inside `components` folder, e.g you want to create worker with name SendEmail then you can create file inside `components` folder and name it SendEmail.php, class inside this file must be SendEmail.
 
 **3.  Create Delayed Job**
 
     You can run job at specific time
+
     ```php
         $time = 1332067214;
         Yii::$app->resque->enqueueJobAt($time, 'queue_name', 'ClassWorker', $args = []);
     ```
     or run job after n second
+
     ```php
         $in = 3600;
         $args = ['id' => $user->id];    
