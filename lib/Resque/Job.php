@@ -41,7 +41,7 @@ class Resque_Job
 	{
 		$this->queue = $queue;
 		$this->payload = $payload;
-                $this->payload['class'] = 'app\\components\\'.$this->payload['class'];
+                $this->payload['class'] = 'frontend\\components\\'.$this->payload['class'];
                 
 		
 	}

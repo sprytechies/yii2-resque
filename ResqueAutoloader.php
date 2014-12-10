@@ -33,12 +33,22 @@ class ResqueAutoloader
      */
     static public function autoload($class)
     {
-        
-        foreach (scandir(\yii\BaseYii::$app->basePath.'/components') as $filename) {
-            $path = \yii\BaseYii::$app->basePath.'/components' . '/' . $filename;
-            if (is_file($path)) {
-                
-                require_once $path;
+       if(scandir(\yii\BaseYii::$app->basePath.'/../frontend/components')){
+            foreach (scandir(\yii\BaseYii::$app->basePath.'/../frontend/components') as $filename) {
+                $path = \yii\BaseYii::$app->basePath.'/components' . '/' . $filename;
+                if (is_file($path)) {
+
+                    require_once $path;
+                }
+            }
+        }
+        else{
+            foreach (scandir(\yii\BaseYii::$app->basePath.'/components') as $filename) {
+                $path = \yii\BaseYii::$app->basePath.'/components' . '/' . $filename;
+                if (is_file($path)) {
+
+                    require_once $path;
+                }
             }
         }
         
