@@ -33,25 +33,32 @@ class ResqueAutoloader
      */
     static public function autoload($class)
     {
-       if(scandir(\yii\BaseYii::$app->basePath.'/../frontend/components')){
-            foreach (scandir(\yii\BaseYii::$app->basePath.'/../frontend/components') as $filename) {
-                $path = \yii\BaseYii::$app->basePath.'/components' . '/' . $filename;
+        //yii 2 advance;
+        if(file_exists(\yii\BaseYii::$app->basePath.'/../frontend/components')){
+            $file= \yii\BaseYii::$app->basePath.'/../frontend/components';
+            if(scandir($file)){
+            foreach (scandir($file) as $filename) {
+               $path = $file. $filename;
                 if (is_file($path)) {
 
                     require_once $path;
                 }
             }
         }
-        else{
-            foreach (scandir(\yii\BaseYii::$app->basePath.'/components') as $filename) {
-                $path = \yii\BaseYii::$app->basePath.'/components' . '/' . $filename;
-                if (is_file($path)) {
+    }
+     // yii 2 basic
+    else{
+        $file= \Yii::getAlias('@app').'/components/';
+       foreach (scandir($file) as $filename) {
+            $path = $file. $filename;
+             if (is_file($path)) {
+                
+                 require_once $path;
+             }
+         }
+    }
 
-                    require_once $path;
-                }
-            }
-        }
-        
+       
         require_once(dirname(__FILE__) . '/lib/Resque/Job.php');
         require_once(dirname(__FILE__) . '/lib/Resque/Event.php');
         require_once(dirname(__FILE__) . '/lib/Resque/Redis.php');
