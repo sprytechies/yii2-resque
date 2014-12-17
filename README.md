@@ -80,8 +80,14 @@ Installation
 
                     # Turn off our amazing library autoload
                     spl_autoload_unregister(array('Yii','autoload'));
-
+                    
+                    if(file_exists(Yii::getAlias('@vendor') . '/resque/yii2-resque/ResqueAutoloader.php')){
+                    // Yii2-Basic
                     require_once(Yii::getAlias('@vendor') . '/resque/yii2-resque/ResqueAutoloader.php');
+                    }else {
+                      // Yii2-Advance
+                    require_once(Yii::getAlias('@app') . '/../vendor/resque/yii2-resque/ResqueAutoloader.php');
+                    }
                     ResqueAutoloader::register();
 
                     # Give back the power to Yii
