@@ -40,7 +40,8 @@ Installation
 
     to the require section of your `composer.json` file.
 
-2.  Create a file `ResqueController.php` in app/commands folder and write the following code in it.
+2.  Create a file `ResqueController.php` in app/commands folder(in case of yii2-basic) or console/controllers(in case of yii2- 
+ advance) and write the following code in it.
     ```php
         namespace app\commands;
         use Yii;
@@ -68,7 +69,13 @@ Installation
                             require_once $file;
                         }
                     }
+                    if(file_exists(Yii::getAlias('@app') . '/config/console.php')){
+                     // Yii2-Basic
                     $config = require(Yii::getAlias('@app') . '/config/console.php');
+                    }else {
+                     // Yii2-Advance
+                    $config = require(Yii::getAlias('@app') . '/config/main.php');
+                    }
                     $application = new \yii\console\Application($config);
 
                     # Turn off our amazing library autoload
@@ -179,7 +186,7 @@ Installation
 
     ```
     
-3.  Add these in your config/web.php and in your config/console.php
+3.  Add these in your config/web.php and in your config/console.php(in case of yii2-basic) or console/config/main.php and common/config/main-local.php (in case of yii2- advance)
 
     ```php
     'components' => [
@@ -202,7 +209,7 @@ Usage
 
 Once the extension is installed  :
 
-1.  Create a folder `components` in your app. 
+1.  Create a folder `components` in your app(yii2-basic).in case of yii2-advance template create this folder inside app(like frontend) 
     You can put all your class files into this `components` folder.
 
     Example - 
@@ -229,6 +236,9 @@ Once the extension is installed  :
         }
     }
     ```
+
+Note: change namespace as per your application.
+   
    Create job and Workers
     ----------------------
 
