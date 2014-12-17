@@ -210,7 +210,7 @@ Usage
 Once the extension is installed  :
 
 1.  Create a folder `components` in your app(yii2-basic).in case of yii2-advance template create this folder inside app(like frontend) 
-    You can put all your class files into this `components` folder.
+    You can put all your class files into this `components` folder.Change namespace as per your application.
 
     Example - 
 
@@ -237,8 +237,7 @@ Once the extension is installed  :
     }
     ```
 
-Note: change namespace as per your application.
-   
+ 
    Create job and Workers
     ----------------------
 
