@@ -1,10 +1,10 @@
 <?php
 namespace resque\lib\Resque;
 use resque\lib\Credis\Credis_Client;
-include(dirname(__FILE__) . '/../Credis/Client.php');
+include_once(dirname(__FILE__) . '/../Credis/Client.php');
 if (class_exists('Redis', false))
 {
-	class RedisApi extends Redis
+	class RedisApi extends \Redis
 	{
 		private static $defaultNamespace = 'resque:';
 
@@ -34,7 +34,7 @@ if (class_exists('Redis', false))
 	            }
 	        }
 
-			$this->setOption(Redis::OPT_PREFIX, self::$defaultNamespace);
+			$this->setOption(\Redis::OPT_PREFIX, self::$defaultNamespace);
 		}
 
 		public function prefix($namespace)
@@ -45,7 +45,7 @@ if (class_exists('Redis', false))
 			}
 			self::$defaultNamespace = $namespace;
                         
-			$this->setOption(Redis::OPT_PREFIX, self::$defaultNamespace);
+			$this->setOption(\Redis::OPT_PREFIX, self::$defaultNamespace);
 		}
 	}
 }
