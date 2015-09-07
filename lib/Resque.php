@@ -35,9 +35,14 @@ class Resque
     protected static $redisDatabase = 0;
 
     /**
-     * @var int ID of Redis database to select.
+     * @var string Redis auth password.
      */
     protected static $redisPassword = '';
+    
+    /**
+     * @var int Redis database connection timeout.
+     */
+    protected static $redisConnectTimeout = '';
 
     /**
      * Given a host/port combination separated by a colon, set it as
@@ -47,11 +52,12 @@ class Resque
      *                      a nested array of servers with host/port pairs.
      * @param int $database
      */
-    public static function setBackend($server, $database = 0, $password = '')
+    public static function setBackend($server, $database = 0, $password = '', $timeout = 5)
     {
         self::$redisServer   = $server;
         self::$redisDatabase = $database;
         self::$redisPassword = $password;
+        self::$redisConnectTimeout = $timeout;
         self::$redis         = null;
     }
 
@@ -73,7 +79,7 @@ class Resque
         
         
         
-        self::$redis = new Resque_Redis($server, self::$redisDatabase, self::$redisPassword);
+        self::$redis = new Resque_Redis($server, self::$redisDatabase, self::$redisPassword, self::$redisConnectTimeout);
         
         # Select Database
         self::$redis->select(self::$redisDatabase);

@@ -27,6 +27,11 @@ class RResque extends \yii\base\Component
      * @var string Redis password auth
      */
     public $password = '';
+    
+    /**
+     * @var int Redis database connection timeout
+     */
+    public $timeout = 5;
 
 
     public $prefix = '';
@@ -56,7 +61,7 @@ class RResque extends \yii\base\Component
             # Give back the power to Yii
             spl_autoload_register(array('Yii','autoload'));
         }
-        Resque::setBackend($this->server . ':' . $this->port, $this->database, $this->password);
+        Resque::setBackend($this->server . ':' . $this->port, $this->database, $this->password, $this->timeout);
         if ($this->prefix) {
           Resque::redis()->prefix($this->prefix);    
         }
